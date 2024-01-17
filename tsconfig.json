@@ -1,4 +1,3 @@
-// tsconfig.json
 {
     "compilerOptions": {
       "target": "es6",
@@ -6,12 +5,10 @@
       "esModuleInterop": true,
     },
     "types": [
-      "node",
-      "jest"
+      "node"
     ],
     "include": [
-      "src/**/*.ts",
-      "src/**/*.d.ts",
+      "./**/*.ts",
+      "./**/*.d.ts",
     ]
   }
-  
