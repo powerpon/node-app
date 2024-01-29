@@ -1,32 +1,29 @@
+import { Model } from "mongoose";
+
 export class BaseRepository<EntityType, EntityIdType> {
-    private entities: EntityType[];
+    private EntityModel: Model<EntityType>;
 
-    constructor(entities: EntityType[]) {
-        this.entities = entities;
+    constructor(EntityModel: Model<EntityType>) {
+        this.EntityModel = EntityModel;
     }
 
-    create(entity: EntityType): EntityType {
-        this.entities.push(entity);
-        return entity;
+    async create(entity: EntityType) {
+        return await this.EntityModel.create(entity);
     }
 
-    getById(id: EntityIdType): EntityType {
-        return this.entities.find((entity: any) => entity.id === id);
+    async getById(id: EntityIdType) {
+        return await this.EntityModel.findById(id).exec();
     }
 
-    update(id: string, newEntity: EntityType): EntityType {
-        const oldEntityIdx = this.entities.findIndex((entity: any) => entity.id === id);
-        if(oldEntityIdx !== -1){
-            this.entities[oldEntityIdx] = newEntity;
-            return newEntity;
-        }
+    async update(id: EntityIdType, newEntity: EntityType) {
+        return await this.EntityModel.replaceOne({_id: id}, newEntity).exec();
     }
 
-    delete(id: EntityIdType): void {
-        this.entities = this.entities.filter((entity: any) => entity.id !== id);
+    async delete(id: EntityIdType) {
+        await this.EntityModel.deleteOne({_id: id}).exec();
     }
 
-    getAll(): EntityType[] {
-        return this.entities;
+    async getAll() {
+        return await this.EntityModel.find({});
     }
 }

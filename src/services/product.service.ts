@@ -1,13 +1,13 @@
 import { MissingProductError } from "../errors/MissingProductError";
-import { Product } from "../models/entities/product.model";
+import { IProduct } from "../models/entities/product.model";
 import { productRepository } from "../repositories/product.repository";
 
 export const productService = {
-    getAllProducts: (): Product[] => {
-        return productRepository.getAll();
+    getAllProducts: async () => {
+        return await productRepository.getAll();
     },
-    getById: (id: string): Product => {
-        const product = productRepository.getById(id);
+    getById: async (id: string) => {
+        const product = await productRepository.getById(id);
         if(product) {
             return product;
         }

@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { EmptyCartError } from "../errors/EmptyCartError";
 import { MissingUserError } from "../errors/MissingUserError";
-import { Order } from "../models/entities/order.model";
+import { IOrder } from "../models/entities/order.model";
 import { userRepository } from "../repositories/user.repository";
 import { CheckoutRequestModel } from "../models/requests/CheckoutRequestModel";
 import { OrderStatus } from "../enums/OrderStatus";
@@ -10,8 +10,8 @@ import { orderRepository } from "../repositories/order.repository";
 import { MissingCartError } from "../errors/MissingCartError";
 
 export const userOrderService = {
-    createOrderByUserId: (userId: string, orderDTO: CheckoutRequestModel): Order => {
-        const user = userRepository.getById(userId);
+    createOrderByUserId: async (userId: string, orderDTO: CheckoutRequestModel) => {
+        const user = await userRepository.getById(userId);
         if(user){
             if(user.cart === null){
                 throw new MissingCartError();
@@ -19,10 +19,10 @@ export const userOrderService = {
             if(user.cart.items.length === 0){
                 throw new EmptyCartError();
             }
-            const order: Order = {
-                id: randomUUID(),
+            const order: IOrder = {
+                _id: randomUUID(),
                 userId: userId,
-                cartId: user.cart.id,
+                cartId: user.cart._id,
                 items: user.cart.items,
                 payment: orderDTO.payment,
                 delivery: orderDTO.delivery,
@@ -30,7 +30,7 @@ export const userOrderService = {
                 status: OrderStatus.CREATED,
                 total: calculateTotal(user.cart)
             }
-            return orderRepository.create(order);
+            return await orderRepository.create(order);
         }
         throw new MissingUserError();
     }

@@ -1,9 +1,9 @@
 import { randomUUID } from "crypto";
-import { Cart } from "../models/entities/cart.model";
+import { ICart } from "../models/entities/cart.model";
 
-export function generateEmptyCart(userId: string): Cart {
+export function generateEmptyCart(userId: string) {
     return {
-        id: randomUUID(),
+        _id: randomUUID(),
         userId: userId,
         isDeleted: false,
         items: []

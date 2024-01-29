@@ -1,8 +1,8 @@
-import { Cart } from "../entities/cart.model"
+import { ICart } from "../entities/cart.model"
 
 export interface CartGetResponseModel {
     data: {
-        cart: Cart;
+        cart: ICart;
         total: number;
     };
     error: null

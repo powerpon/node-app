@@ -5,16 +5,16 @@ import { ProductsGetResponseModel } from '../models/responses/ProductsGetRespons
 import { ProductGetResponseModel } from '../models/responses/ProductGetResponseModel';
 
 export const productController = {
-    getAllProducts: (request: Request, response: Response) => {
-        const products = productService.getAllProducts();
+    getAllProducts: async (request: Request, response: Response) => {
+        const products = await productService.getAllProducts();
         const productsResponseSuccess: ProductsGetResponseModel = {
             data: products,
             error: null
         };
         response.status(StatusCode.OK).send(productsResponseSuccess);
     },
-    getProductById: (request: Request, response: Response) => {
-        const product = productService.getById(request.params.productId);
+    getProductById: async (request: Request, response: Response) => {
+        const product = await productService.getById(request.params.productId);
         const productResponseSuccess: ProductGetResponseModel = {
             data: product,
             error: null

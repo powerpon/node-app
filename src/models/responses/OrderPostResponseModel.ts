@@ -1,8 +1,8 @@
-import { Order } from "../entities/order.model";
+import { IOrder } from "../entities/order.model";
 
 export interface OrderPostResponseModel {
     data: {
-        order: Order;
+        order: IOrder;
     };
     error: null
 }

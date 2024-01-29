@@ -1,5 +1,4 @@
-import { database } from "../database"
-import { Order } from "../models/entities/order.model";
+import { IOrder, Order } from "../models/entities/order.model";
 import { BaseRepository } from "./base.repository";
 
-export const orderRepository = new BaseRepository<Order, string>(database.orders);
+export const orderRepository = new BaseRepository<IOrder, string>(Order);

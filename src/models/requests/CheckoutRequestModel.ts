@@ -1,13 +1,4 @@
-interface Payment {
-    type: string,
-    address?: any,
-    creditCard?: any,
-}
-
-interface Delivery {
-    type: string,
-    address: any,
-}
+import { Payment, Delivery } from "../entities/order.model";
 
 export interface CheckoutRequestModel {
     payment: Payment;

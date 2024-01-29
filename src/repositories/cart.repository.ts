@@ -1,28 +1,22 @@
-import { database } from "../database";
-import { Cart } from "../models/entities/cart.model";
+import { Cart, ICart } from "../models/entities/cart.model";
 import { BaseRepository } from "./base.repository";
 
-const cartRepository = new BaseRepository<Cart, string>(database.carts);
+const cartRepository = new BaseRepository<ICart, string>(Cart);
 
-cartRepository.getById = (id: string): Cart => {
-    return database.carts.find((cart: Cart) => cart.id === id && !cart.isDeleted);
+cartRepository.getById = async (id: string) => {
+    return await Cart.findOne({_id: id, isDeleted: false}).exec();
 }
 
-cartRepository.update = (id: string, newCart: Cart): Cart => {
-    const oldCartIdx = database.carts.findIndex((cart: Cart) => cart.id === id && !cart.isDeleted);
-    if(oldCartIdx !== -1){
-        database.carts[oldCartIdx] = newCart;
-        return newCart;
-    }
+cartRepository.update = async (id: string, newCart: ICart) => {
+    return await Cart.replaceOne({_id: id, isDeleted: false}, newCart).exec();
 }
 
-cartRepository.delete = (id: string): void => {
-    const cart = database.carts.find((cart) => cart.id === id);
-    cart.isDeleted = true;
+cartRepository.delete = async (id: string) => {
+    await Cart.updateOne({_id: id}, {isDeleted: true});
 }
 
-cartRepository.getAll = (): Cart[] => {
-    return database.carts.filter((cart) => !cart.isDeleted);
+cartRepository.getAll = async () => {
+    return await Cart.find({});
 }
 
 export default cartRepository;

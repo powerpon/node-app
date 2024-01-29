@@ -6,7 +6,7 @@ import { StatusCode } from "../enums/StatusCode";
 import { ErrorResponseModel } from "../models/responses/ErrorResponseModel";
 import { BaseHttpError } from "../errors/BaseHttpError";
 
-export const errorHandler = (error: BaseHttpError, request: Request, response: Response, next: NextFunction) => {
+export const errorHandler = async (error: BaseHttpError, request: Request, response: Response, next: NextFunction) => {
     const errorResponse: ErrorResponseModel = {
         data: null,
         error: {

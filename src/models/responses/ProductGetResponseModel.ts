@@ -1,6 +1,6 @@
-import { Product } from "../entities/product.model";
+import { IProduct } from "../entities/product.model";
 
 export interface ProductGetResponseModel {
-    data: Product;
+    data: IProduct;
     error: null
 }

@@ -8,8 +8,8 @@ import { OrderPostResponseModel } from '../models/responses/OrderPostResponseMod
 import { StatusCode } from '../enums/StatusCode';
 
 export const cartController = {
-    getCartByUserId: (request: Request, response: Response) => {
-        const cart = userCartService.getCartByUserId(request.get('x-user-id'));
+    getCartByUserId: async (request: Request, response: Response) => {
+        const cart = await userCartService.getCartByUserId(request.get('x-user-id'));
         const cartResponseSuccess: CartGetResponseModel = {
             data: {
                 cart: cart,
@@ -19,8 +19,8 @@ export const cartController = {
         }
         response.status(StatusCode.OK).send(cartResponseSuccess);
     },
-    addProductToCartByUserId: (request: Request, response: Response) => {
-        const cart = userCartService.updateCartByUserId(request.get('x-user-id'), request.body);
+    addProductToCartByUserId: async (request: Request, response: Response) => {
+        const cart = await userCartService.updateCartByUserId(request.get('x-user-id'), request.body);
         const cartResponseSuccess: CartGetResponseModel = {
             data: {
                 cart: cart,
@@ -30,8 +30,8 @@ export const cartController = {
         }
         response.status(StatusCode.OK).send(cartResponseSuccess);
     },
-    emptyCartByUserId: (request: Request, response: Response) => {
-        userCartService.emptyCartByUserId(request.get('x-user-id'));
+    emptyCartByUserId: async (request: Request, response: Response) => {
+        await userCartService.emptyCartByUserId(request.get('x-user-id'));
         const cartResponseSuccess: CartDeleteResponseModel = {
             data: {
                 success: true
@@ -40,8 +40,8 @@ export const cartController = {
         }
         response.status(StatusCode.OK).send(cartResponseSuccess);
     },
-    createOrderByUserId: (request: Request, response: Response) => {
-        const order = userOrderService.createOrderByUserId(request.get('x-user-id'), request.body);
+    createOrderByUserId: async (request: Request, response: Response) => {
+        const order = await userOrderService.createOrderByUserId(request.get('x-user-id'), request.body);
         const checkoutResponseSuccess: OrderPostResponseModel = {
             data: {
                 order: order,
