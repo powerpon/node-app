@@ -11,4 +11,3 @@ export interface Cart {
     isDeleted: boolean;
     items: CartItem[];
 }
-  

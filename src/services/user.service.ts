@@ -10,4 +10,4 @@ export const userService = {
         }
         throw new MissingUserError();
     }
-}
+};

@@ -18,5 +18,4 @@ export interface Order {
     comments: string,
     status: OrderStatus;
     total: number;
-  }
-  
+}

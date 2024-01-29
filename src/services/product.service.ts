@@ -13,4 +13,4 @@ export const productService = {
         }
         throw new MissingProductError();
     }
-}
+};

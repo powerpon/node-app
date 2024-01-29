@@ -134,4 +134,4 @@ export const database: {users: User[], carts: Cart[], orders: Order[], products:
             price: 79.99
         }
     ]
-}
+};

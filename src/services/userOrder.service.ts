@@ -34,4 +34,4 @@ export const userOrderService = {
         }
         throw new MissingUserError();
     }
-}
+};
