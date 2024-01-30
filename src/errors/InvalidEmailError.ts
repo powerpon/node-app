@@ -1,8 +1,8 @@
 import { StatusCode } from "../enums/StatusCode";
 import { BaseHttpError } from "./BaseHttpError";
 
-export class AuthenticationError extends BaseHttpError {
+export class InvalidEmailError extends BaseHttpError {
     constructor(){
-        super('User Is Not Authorized', StatusCode.FORBIDDEN);
+        super('Email Is Not Valid', StatusCode.BAD_REQUEST);
     }
 }

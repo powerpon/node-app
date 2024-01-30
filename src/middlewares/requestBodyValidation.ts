@@ -1,9 +1,10 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import Joi from "joi";
 import { RequestBodyValidationError } from "../errors/RequestBodyValidationError";
+import { AuthenticatedRequest } from "../models/requests/AuthenticatedRequestModel";
 
 export const requestBodyValidate = (validationModel: Joi.ObjectSchema<any>) => {
-    return (request: Request, response: Response, next: NextFunction) => {
+    return (request: AuthenticatedRequest, response: Response, next: NextFunction) => {
         const { error } = validationModel.validate(request.body); 
         const isValid = error == null;
         if(isValid){

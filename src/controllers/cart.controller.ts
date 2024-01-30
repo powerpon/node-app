@@ -6,10 +6,11 @@ import { CartDeleteResponseModel } from '../models/responses/CartDeleteResponseM
 import { userOrderService } from '../services/userOrder.service';
 import { OrderPostResponseModel } from '../models/responses/OrderPostResponseModel';
 import { StatusCode } from '../enums/StatusCode';
+import { AuthenticatedRequest } from '../models/requests/AuthenticatedRequestModel';
 
 export const cartController = {
-    getCartByUserId: async (request: Request, response: Response) => {
-        const cart = await userCartService.getCartByUserId(request.get('x-user-id'));
+    getCartByUserId: async (request: AuthenticatedRequest, response: Response) => {
+        const cart = await userCartService.getCartByUserId(request.user._id);
         const cartResponseSuccess: CartGetResponseModel = {
             data: {
                 cart: cart,
@@ -19,8 +20,8 @@ export const cartController = {
         }
         response.status(StatusCode.OK).send(cartResponseSuccess);
     },
-    addProductToCartByUserId: async (request: Request, response: Response) => {
-        const cart = await userCartService.updateCartByUserId(request.get('x-user-id'), request.body);
+    addProductToCartByUserId: async (request: AuthenticatedRequest, response: Response) => {
+        const cart = await userCartService.updateCartByUserId(request.user._id, request.body);
         const cartResponseSuccess: CartGetResponseModel = {
             data: {
                 cart: cart,
@@ -30,8 +31,8 @@ export const cartController = {
         }
         response.status(StatusCode.OK).send(cartResponseSuccess);
     },
-    emptyCartByUserId: async (request: Request, response: Response) => {
-        await userCartService.emptyCartByUserId(request.get('x-user-id'));
+    emptyCartByUserId: async (request: AuthenticatedRequest, response: Response) => {
+        await userCartService.emptyCartByUserId(request.user._id);
         const cartResponseSuccess: CartDeleteResponseModel = {
             data: {
                 success: true
@@ -40,8 +41,8 @@ export const cartController = {
         }
         response.status(StatusCode.OK).send(cartResponseSuccess);
     },
-    createOrderByUserId: async (request: Request, response: Response) => {
-        const order = await userOrderService.createOrderByUserId(request.get('x-user-id'), request.body);
+    createOrderByUserId: async (request: AuthenticatedRequest, response: Response) => {
+        const order = await userOrderService.createOrderByUserId(request.user._id, request.body);
         const checkoutResponseSuccess: OrderPostResponseModel = {
             data: {
                 order: order,

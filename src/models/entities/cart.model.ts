@@ -13,7 +13,7 @@ export const cartItemSchema = new Schema({
 });
 
 export interface ICart{
-    _id: string;
+    _id?: string;
     userId: string;
     isDeleted: boolean;
     items: CartItem[];

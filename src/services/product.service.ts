@@ -1,5 +1,4 @@
 import { MissingProductError } from "../errors/MissingProductError";
-import { IProduct } from "../models/entities/product.model";
 import { productRepository } from "../repositories/product.repository";
 
 export const productService = {

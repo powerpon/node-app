@@ -2,9 +2,9 @@ import { MissingCartError } from "../errors/MissingCartError";
 import { MissingProductError } from "../errors/MissingProductError";
 import { MissingUserError } from "../errors/MissingUserError";
 import { generateEmptyCart } from "../helpers/generateEmptyCart";
-import { ICart, CartItem } from "../models/entities/cart.model";
+import { CartItem } from "../models/entities/cart.model";
 import { CartUpdateRequestModel } from "../models/requests/CartUpdateRequestModel";
-import cartRepository from "../repositories/cart.repository";
+import { cartRepository } from "../repositories/cart.repository";
 import { productRepository } from "../repositories/product.repository";
 import { userRepository } from "../repositories/user.repository";
 

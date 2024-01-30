@@ -26,7 +26,7 @@ const deliverySchema = new Schema({
 });
 
 export interface IOrder {
-  _id: string;
+  _id?: string;
   userId: string;
   cartId: string;
   items: CartItem[];

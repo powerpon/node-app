@@ -1,16 +1,20 @@
-import { NextFunction, Request, Response } from "express";
-import { userService } from "../services/user.service";
+import { NextFunction, Response } from "express";
 import { AuthenticationError } from "../errors/AuthenticationError";
-import { MissingUserError } from "../errors/MissingUserError";
+import * as jwt from "jsonwebtoken";
+import { AuthenticatedRequest } from "../models/requests/AuthenticatedRequestModel";
+import { MissingAccessTokenError } from "../errors/MissingAccessTokenError";
 
-export const authenticate = async (request: Request, response: Response, next: NextFunction) => {
+export const authenticate = async (request: AuthenticatedRequest, response: Response, next: NextFunction) => {
+    const headerContent = request.get('Authorization');
+    if(!headerContent){
+        throw new MissingAccessTokenError();
+    }
     try{
-        await userService.getById(request.get('x-user-id'));
+        const token = headerContent.substring('Bearer '.length);
+        const user = jwt.verify(token, process.env.TOKEN_SECRET!);
+        request.user = user;
         next();
     }catch(error){
-        if(error instanceof MissingUserError){
-            throw new AuthenticationError();
-        }
-        throw new Error(error.message);
+        throw new AuthenticationError();
     }
 }

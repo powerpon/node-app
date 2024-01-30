@@ -24,6 +24,6 @@ export class BaseRepository<EntityType, EntityIdType> {
     }
 
     async getAll() {
-        return await this.EntityModel.find({});
+        return await this.EntityModel.find({}).exec();
     }
 }
