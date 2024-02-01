@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import { IProduct, Product, productSchema } from "./product.model";
-import { UUID, randomUUID } from "crypto";
+import { IProduct, productSchema } from "./product.model";
+import { randomUUID } from "crypto";
 
 export interface CartItem {
     product: IProduct;

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { StatusCode } from '../enums/StatusCode';
 import { productService } from '../services/product.service';
 import { ProductsGetResponseModel } from '../models/responses/ProductsGetResponseModel';

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { userCartService } from '../services/userCart.service';
 import { CartGetResponseModel } from '../models/responses/CartGetResponseModel';
 import { calculateTotal } from '../helpers/calcualteCartTotal';
